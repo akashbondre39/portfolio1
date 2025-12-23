@@ -820,6 +820,23 @@
                 follower.style.borderColor = 'var(--accent-primary)';
             });
         });
+        const counterNamespace = 'akashbondre-portfolio'; 
+        const counterKey = 'unique-visits';
+
+        async function trackVisit() {
+            const hasVisited = localStorage.getItem('hasVisitedPortfolio');
+            if (!hasVisited) {
+                try {
+                    await fetch(`https://api.counterapi.dev/v1/${counterNamespace}/${counterKey}/up`);
+                    localStorage.setItem('hasVisitedPortfolio', 'true');
+                    console.log('New unique visit logged.'); 
+                } catch (error) {
+                    console.error('Tracking error:', error);
+                }
+            }
+        }
+        trackVisit();        
     </script>
 </body>
+
 </html>
