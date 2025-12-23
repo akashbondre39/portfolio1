@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash Bondre | Data Analyst & </title>
+    <meta name="description" content="Portfolio of Akash Bondre, a Data Analyst specializing in decision-driven analytics, product growth, and business intelligence.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Theme Colors - 2025 Enterprise Dark */
+            --bg-deep: #030303;
+            --bg-surface: #0a0a0c;
+            --accent-primary: #00f3ff; /* Cyber Cyan */
+            --accent-secondary: #7000ff; /* Electric Purple */
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --neon-glow: 0 0 20px rgba(0, 243, 255, 0.15);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND ELEMENTS --- */
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--glass-border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .gradient-sphere {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.1) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #cursor {
+            width: 8px; height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+        #cursor-follower {
+            width: 40px; height: 40px;
+            border: 1px solid var(--accent-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease-out, opacity 0.3s;
+            opacity: 0.5;
+        }
+
+        /* --- LAYOUT & UTILS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        section.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-tag {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .highlight {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 1.5rem 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -1px;
+            text-decoration: none;
+            color: var(--text-main);
+            border: 1px solid var(--accent-primary);
+            padding: 4px 12px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+        }
+
+        .stat-item label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .skill-card i {
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--glass);
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: var(--text-muted);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* --- CERTIFICATES SECTION --- */
+        .cert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            border-left: 4px solid var(--accent-secondary);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cert-item:hover {
+            border-color: var(--accent-primary);
+            background: rgba(112, 0, 255, 0.05);
+            transform: translateX(10px);
+        }
+
+        .cert-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .cert-info span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .cert-icon {
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-secondary);
+            transform: scale(1.02);
+        }
+
+        .project-info {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-tools {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-box {
+            background: rgba(0, 243, 255, 0.03);
+            border-left: 2px solid var(--accent-primary);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .impact-box small {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: auto;
+        }
+
+        .project-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: 0.3s;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-primary);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* --- CASE STUDY SPOTLIGHT --- */
+        .case-study {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid var(--accent-primary);
+        }
+
+        .case-study::after {
+            content: "FLAGSHIP";
+            position: absolute;
+            top: 2rem; right: -2rem;
+            background: var(--accent-primary);
+            color: black;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .cs-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .cs-step {
+            margin-bottom: 2rem;
+        }
+
+        .cs-step h4 {
+            color: var(--accent-primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        input, textarea {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1.2rem;
+            color: white;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .btn-action {
+            background: var(--text-main);
+            color: var(--bg-deep);
+            padding: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            background: var(--accent-primary);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-2px);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .cs-content, .contact-wrapper { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
+            .case-study { padding: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+    <div class="grid-overlay"></div>
+    <div class="gradient-sphere"></div>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">AKASH.ANALYTICS</a>
+            <div class="nav-links">
+                <a href="#skills">Skills</a>
+                <a href="#certificates">Certificates</a>
+                <a href="#projects">Work</a>
+                <a href="#contact">Contact</a>
+                <a href="https://github.com/akashbondre39" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <section class="hero" id="home">
+            <span class="section-tag">// Data Analytics & Product Intelligence</span>
+            <h1>Turning Noise into <span class="highlight">Predictive Capital.</span></h1>
+            <p>I am Akash Bondre, a Data Analyst focused on building analytical systems that turn raw data into strategic advantage — blending visualization, statistics, and product thinking.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="counter" data-target="7">0</span>
+                    <label>Deployed Projects</label>
+                </div>
+                <div class="stat-item">
+                    <span class="counter" data-target="2">0</span>
+                    <label>M+ Records Processed</label>
+                </div>
+                <div class="stat-item">
+                    <span class="counter" data-target="98">0</span>
+                    <label>Accuracy Rating %</label>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <span class="section-tag">// Technical Arsenal</span>
+            <h2>Advanced <span class="highlight">Stack</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="tag">SQL (PostegreSQL/BigQuery)</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Google Sheets</span>
+                        <span class="tag">ETL</span>
+                        <span class="tag">Statistics</span>
+                        <span class="tag">RCA</span>
+                        <span class="tag">Trends & Insights</span>
+                        
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Data Visualization</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Power BI</span>
+                        <span class="tag">Tableau</span>
+                        <span class="tag">Microsoft Excel</span>
+                        <span class="tag">Matplotlib/Seaborn</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Product Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Mixpanel</span>
+                        <span class="tag">A/B Testing</span>
+                        <span class="tag">Google Analytics</span>
+                        <span class="tag">Hypothesis Testing</span>
+                        <span class="tag">Funnel Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificates">
+            <span class="section-tag">// Credentials</span>
+            <h2>Verified <span class="highlight">Certificates</span></h2>
+            <div class="cert-list">
+                <a href="https://www.hackerrank.com/certificates/iframe/105fef26afa2" target="_blank" class="cert-item">
+                    <div class="cert-info">
+                        <h3>HackerRank SQL (Advanced) Certificate</h3>
+                        <span>Issued by HackerRank</span>
+                    </div>
+                    <i class="fas fa-external-link-alt cert-icon"></i>
+                </a>
+                <a href="https://drive.google.com/file/d/1MCl9WY33NW5MVRnk2Vg76P9oo0_out6h/view" target="_blank" class="cert-item">
+                    <div class="cert-info">
+                        <h3>Product Analytics with Mixpanel</h3>
+                        <span>Issued by ProductSchool</span>
+                    </div>
+                    <i class="fas fa-external-link-alt cert-icon"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="featured">
+            <span class="section-tag">// Project Spotlight</span>
+            <div class="case-study">
+                <div class="cs-content">
+                    <div>
+                        <h2>User Journey Optimization -<span class="highlight"> Fintech Lending Product</span></h2>
+                        <div class="cs-step">
+                            <h4>The Problem</h4>
+                            <p>Diagnostic analysis of 150k+ user journeys to solve a stagnant 12% conversion rate and address $2.4M in annualized revenue leakage due to mid-funnel friction.</p>
+                        </div>
+                        <div class="cs-step">
+                            <h4>Analytical Approach</h4>
+                            <p>Leveraged Python & SQL for clickstream sessionization to pinpoint technical failures (Android KYC errors) and behavioral drop-offs (pricing sensitivity) within the lending funnel..</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="cs-step">
+                            <h4>Business Impact</h4>
+                            <p>Enabled product stakeholders to prioritize technical fixes by quantifying the cost of specific drop-off points, transforming raw error logs into a clear roadmap for recovering lost revenue.</p>
+                        </div>
+                        <div class="impact-box">
+                            <small>Key Result</small>
+                            <h3 style="color: var(--accent-primary);">42% Drop-off "Cliff" Resolved</h3>
+                        </div>
+                        <a href="https://github.com/akashbondre39/Reducing-Drop-Offs-Boosting-Conversions-for-a-Fintech-Lending-Product" target="_blank"class="btn-action" style="width: 100%;">Repo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <span class="section-tag">// Project Archive</span>
+            <h2>Recent <span class="highlight">Deployments</span></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">Exploratory Data Analysis • Python • CLV</span>
+                        <h3>Customer Profitability Analysis</h3>
+                        <p>Understanding What Drives Customer Profitability based on LTV uncovering 10% higher revenue potential </p>
+                        <div class="impact-box">
+                            <small>CLTV</small>
+                            <strong>Identify high LTV segments with optimized revenue drivers</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://akashbondre39.https://github.com/akashbondre39/Customer-Profitability-Analysis---Understanding-What-Drives-Customer-Profitability" target="_blank"><i class="fab fa-github"></i> Repository</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">Python • Marketing Analytics</span>
+                        <h3>Marketing Effectiveness</h3>
+                        <p>Optimization for Consumer Credit Card Acquisition and Engagement using segmentation.</p>
+                        <div class="impact-box">
+                            <small>ROI</small>
+                            <strong>Reduced CAC and Maximized Ad Spend Efficiency</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/akashbondre39/Marketing-Effectiveness-and-ROI-Optimization-for-Consumer-Credit-Card-Acquisition-and-Engagement" target="_blank"><i class="fab fa-github"></i> Repository</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">Risk Modeling • SQL • Power BI</span>
+                        <h3>Credit Risk Analysis</h3>
+                        <p>Deep dive into Customer Risk and Transactional Analysis to mitigate financial exposure.</p>
+                        <div class="impact-box">
+                            <small>Risk Mitigated</small>
+                            <strong>Detected 15% more high-risk defaults vs baseline</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://akashbondre39.github.io/Customer-Risk-and-Transactional-Analysis/" target="_blank"><i class="fas fa-external-link-alt"></i> Analysis</a>
+                        </div>
+                    </div>
+                </div>
+
+              
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">E-Commerce • Excel • Power BI</span>
+                        <h3>E-commerce Platform Analysis</h3>
+                        <p>Audited $2.19M sales data, driving visibility on revenue growth and margin erosion.</p>
+                        <div class="impact-box">
+                            <small>Impact</small>
+                            <strong>Optimized inventory based on high-margin customer segments.</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://akashbondre39.github.io/Beauty-Skincare-Co.---E-Commerce-Platform-Analysis/" target="_blank"><i class="fas fa-external-link-alt"></i> Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">Excel • Logistics • Power BI</span>
+                        <h3>Supply Chain Optimization</h3>
+                        <p>Logistics and Inventory Optimization for D2C Products. Reduced stockouts and improved delivery SLA.</p>
+                        <div class="impact-box">
+                            <small>Metric</small>
+                            <strong>Improved Delivery SLA Compliance</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://akashbondre39.github.io/Supply-Chain-Management---Logistics-and-Management/" target="_blank"><i class="fas fa-external-link-alt"></i> Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-tools">Market Analysis • Power BI</span>
+                        <h3>Smartphone Market Decoding</h3>
+                        <p>Sales, Trends & Customer Insights analysis for the competitive smartphone market sector.</p>
+                        <div class="impact-box">
+                            <small>Insight</small>
+                            <strong>Identified Emerging Regional Trends</strong>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://akashbondre39.github.io/Decoding-the-Smartphone-Market-Sales-Trends-Customer-Insights/" target="_blank"><i class="fas fa-external-link-alt"></i> Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <span class="section-tag">// Get in Touch</span>
+            <div class="contact-wrapper">
+                <div>
+                    <h2>Ready to scale <span class="highlight">together?</span></h2>
+                    <p>Available for high-stakes data analytics and product intelligence roles.</p>
+                    <div class="social-links" style="font-size: 1.5rem; display: flex; gap: 2rem; margin-top: 2rem;">
+                        <a href="https://www.linkedin.com/in/akashbondre27" target="_blank" style="color: white;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/akashbondre39" target="_blank" style="color: white;"><i class="fab fa-github"></i></a>
+                        <a href="mailto:akashbondre39@gmail.com" style="color: white;"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <form>
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Project Details" rows="4" required></textarea>
+                    <button type="submit" class="btn-action">Initiate Handshake</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="padding: 4rem 0; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p style="color: var(--text-muted); font-size: 0.8rem; font-family: 'JetBrains Mono';">
+            © 2025 AKASH BONDRE | ENCRYPTED PORTFOLIO
+        </p>
+    </footer>
+
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX - 16 + 'px';
+                follower.style.top = e.clientY - 16 + 'px';
+            }, 50);
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // Counter Animation Logic
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const target = +entry.target.getAttribute('data-target');
+                    const updateCount = () => {
+                        const current = +entry.target.innerText.replace('+', '').replace('%', '');
+                        const increment = target / 50;
+                        if(current < target) {
+                            entry.target.innerText = Math.ceil(current + increment);
+                            setTimeout(updateCount, 25);
+                        } else {
+                            entry.target.innerText = target + (target === 100 ? '%' : '+');
+                        }
+                    };
+                    updateCount();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 1 });
+
+        counters.forEach(c => counterObserver.observe(c));
+
+        // Hover state for cursor
+        document.querySelectorAll('a, button, .project-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                follower.style.transform = 'scale(1.5)';
+                follower.style.borderColor = 'var(--accent-secondary)';
+            });
+            el.addEventListener('mouseleave', () => {
+                follower.style.transform = 'scale(1)';
+                follower.style.borderColor = 'var(--accent-primary)';
+            });
+        });
+    </script>
+</body>
+</html>
